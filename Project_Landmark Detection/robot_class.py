@@ -36,7 +36,7 @@ class robot:
         self.num_landmarks = 0
     
     
-    # returns a positive, random float
+    # returns a random float in the range [-1,1]
     def rand(self):
         return random.random() * 2.0 - 1.0
     
@@ -64,9 +64,6 @@ class robot:
     #        is of variable length. Set measurement_range to -1 if you want all
     #        landmarks to be visible at all times
     #
-    
-    ## TODO: paste your complete the sense function, here
-    ## make sure the indentation of the code is correct
     def sense(self):
         ''' This function does not take in any parameters, instead it references internal variables
             (such as self.landamrks) to measure the distance between the robot and any landmarks
@@ -77,7 +74,18 @@ class robot:
             One item in the returned list should be in the form: [landmark_index, dx, dy].
             '''
            
-        measurements = None
+        measurements = []
+
+        #print(self.landmarks)
+        for k, item in enumerate(self.landmarks):
+            # compute dx, dy, and add random noise
+            dx = (item[0] - self.x) + self.rand() * self.measurement_noise
+            dy = (item[1] - self.y) + self.rand() * self.measurement_noise
+            #print('landmark distance:', [dx,dy])
+            if abs(dx) <= self.measurement_range or abs(dy) <= self.measurement_range:
+                measurements.append([k, dx, dy])
+            
+        #print('measurements:', measurements)
         
         ## TODO: iterate through all of the landmarks in a world
         

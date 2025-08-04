@@ -77,8 +77,10 @@ def make_data(N, num_landmarks, world_size, measurement_range, motion_noise,
         orientation = random.random() * 2.0 * pi
         dx = cos(orientation) * distance
         dy = sin(orientation) * distance
-            
+
+        print('init pos:', [r.x,r.y])
         for k in range(N-1):
+            
     
             # collect sensor measurements in a list, Z
             Z = r.sense()
@@ -93,6 +95,7 @@ def make_data(N, num_landmarks, world_size, measurement_range, motion_noise,
                 orientation = random.random() * 2.0 * pi
                 dx = cos(orientation) * distance
                 dy = sin(orientation) * distance
+            print('pos:', [r.x,r.y])
 
             # collect/memorize all sensor and motion data
             data.append([Z, [dx, dy]])
